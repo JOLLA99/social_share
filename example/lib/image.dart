@@ -43,8 +43,8 @@ class _TextOverImage extends State<TextOverImage> {
                     children: <Widget>[
                       // 이미지 부분
                       Container(
-                          child:
-                              img == null ? Text('no image') : Image.file(img)),
+                          child: img == null ? Text('no image') : setImage()),
+
                       HomePage() // 글자 표시
                     ],
                   ),
@@ -100,6 +100,14 @@ class _TextOverImage extends State<TextOverImage> {
     } else {
       print("!");
     }
+  }
+
+  // 이미지 변경 함수
+  File setImage() {
+    setState(() async {
+      img = await ImagePicker.pickImage(source: ImageSource.gallery);
+    });
+    return img;
   }
 }
 
