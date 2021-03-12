@@ -17,6 +17,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+assets:
+  - images/test.png
+
 flutter:
   plugin:
     platforms:

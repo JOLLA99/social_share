@@ -1,12 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 import 'package:screenshot/screenshot.dart';
 import 'package:social_share/social_share.dart';
+import 'package:social_share_example/image.dart';
 
 void main() => runApp(MyApp());
 
@@ -57,16 +55,8 @@ class _MyAppState extends State<MyApp> {
                   textAlign: TextAlign.center,
                 ),
                 RaisedButton(
-                  onPressed: () async {
-                    File file = await ImagePicker.pickImage(
-                        source: ImageSource.gallery);
-                    SocialShare.shareInstagramStory(file.path, "#ffffff",
-                            "#000000", "https://deep-link-url")
-                        .then((data) {
-                      print(data);
-                    });
-                  },
-                  child: Text("Share On Instagram Story"),
+                  // 인스타그램 스토리 이동
+                  child: InstagramStory(),
                 ),
                 RaisedButton(
                   onPressed: () async {
@@ -176,6 +166,21 @@ class _MyAppState extends State<MyApp> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class InstagramStory extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: RaisedButton(
+        child: Text("instagram story"),
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TextOverImage()),
         ),
       ),
     );

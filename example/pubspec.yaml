@@ -17,6 +17,10 @@ dependencies:
   http:
   image_picker: ^0.6.3+1
 
+  # 남준님 코드 패키지
+  media_scanner_scan_file: ^0.0.2
+  permission_handler: ^5.0.1+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
