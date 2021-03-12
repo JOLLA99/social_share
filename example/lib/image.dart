@@ -57,9 +57,9 @@ class _TextOverImage extends State<TextOverImage> {
             RaisedButton(
               //갤러리에서 이미지 파일을 가져오는 버튼
               child: Text("gallery"),
-              onPressed: () {
+              onPressed: () async {
                 // 이미지 파일을 갤러리로부터 가져옴
-                getImage();
+                img = await ImagePicker.pickImage(source: ImageSource.gallery);
 
                 // social_share => 고른 위의 파일의 경로를 가지고 story에 업로드한다.
                 //SocialShare.shareInstagramStory(
@@ -99,11 +99,6 @@ class _TextOverImage extends State<TextOverImage> {
     } else {
       print("!");
     }
-  }
-
-  // 이미지 가져오는 함수
-  void getImage() async {
-    img = await ImagePicker.pickImage(source: ImageSource.gallery);
   }
 
   // 이미지 변경 함수
