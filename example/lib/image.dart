@@ -12,7 +12,12 @@ import 'check_permission.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:social_share/social_share.dart';
 
-class TextOverImage extends StatelessWidget {
+class TextOverImage extends StatefulWidget {
+  @override
+  _TextOverImage createState() => _TextOverImage();
+}
+
+class _TextOverImage extends State<TextOverImage> {
   var globalKey = new GlobalKey(); // 위젯 캡쳐를 위한 globalkey
   File img;
 
