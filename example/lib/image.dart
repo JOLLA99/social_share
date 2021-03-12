@@ -42,8 +42,7 @@ class _TextOverImage extends State<TextOverImage> {
                   child: Stack(
                     children: <Widget>[
                       // 이미지 부분
-                      Container(
-                          child: img == null ? Text('no image') : setImage()),
+                      Container(child: setImage()),
 
                       HomePage() // 글자 표시
                     ],
@@ -58,9 +57,9 @@ class _TextOverImage extends State<TextOverImage> {
             RaisedButton(
               //갤러리에서 이미지 파일을 가져오는 버튼
               child: Text("gallery"),
-              onPressed: () async {
+              onPressed: () {
                 // 이미지 파일을 갤러리로부터 가져옴
-                img = await ImagePicker.pickImage(source: ImageSource.gallery);
+                getImage();
 
                 // social_share => 고른 위의 파일의 경로를 가지고 story에 업로드한다.
                 //SocialShare.shareInstagramStory(
@@ -102,12 +101,19 @@ class _TextOverImage extends State<TextOverImage> {
     }
   }
 
+  // 이미지 가져오는 함수
+  void getImage() async {
+    img = await ImagePicker.pickImage(source: ImageSource.gallery);
+  }
+
   // 이미지 변경 함수
-  File setImage() {
-    setState(() async {
-      img = await ImagePicker.pickImage(source: ImageSource.gallery);
+  Widget setImage() {
+    Widget a;
+    setState(() {
+      img == null ? a = Text('no image') : a = Image.file(img);
     });
-    return img;
+
+    return a;
   }
 }
 
