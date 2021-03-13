@@ -19,7 +19,8 @@ class TextOverImage extends StatefulWidget {
 
 class _TextOverImage extends State<TextOverImage> {
   var globalKey = new GlobalKey(); // 위젯 캡쳐를 위한 globalkey
-  File img;
+  var file;
+  Image _stickerImage;
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +43,16 @@ class _TextOverImage extends State<TextOverImage> {
                   child: Stack(
                     children: <Widget>[
                       // 이미지 부분
-                      Container(child: setImage()),
-
+                      FutureBuilder(
+                          future: _loadImage(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<Image> image) {
+                            if (image.hasData) {
+                              return image.data; // image is ready
+                            } else {
+                              return new Container(); // placeholder
+                            }
+                          }),
                       HomePage() // 글자 표시
                     ],
                   ),
@@ -57,16 +66,13 @@ class _TextOverImage extends State<TextOverImage> {
             RaisedButton(
               //갤러리에서 이미지 파일을 가져오는 버튼
               child: Text("gallery"),
-              onPressed: () async {
-                // 이미지 파일을 갤러리로부터 가져옴
-                img = await ImagePicker.pickImage(source: ImageSource.gallery);
-
+              onPressed: () {
                 // social_share => 고른 위의 파일의 경로를 가지고 story에 업로드한다.
-                //SocialShare.shareInstagramStory(
-                //        img.path, "#ffffff", "#000000", "https://deep-link-url")
-                //    .then((data) {
-                //  print(data);
-                //});
+                SocialShare.shareInstagramStory(file.path, "#ffffff", "#000000",
+                        "https://deep-link-url")
+                    .then((data) {
+                  print(data);
+                });
               },
             ),
           ],
@@ -101,14 +107,12 @@ class _TextOverImage extends State<TextOverImage> {
     }
   }
 
-  // 이미지 변경 함수
-  Widget setImage() {
-    Widget a;
-    setState(() {
-      img == null ? a = Text('no image') : a = Image.file(img);
-    });
+  Future<Image> _loadImage() async {
+    file = await ImagePicker.pickImage(source: ImageSource.gallery);
 
-    return a;
+    _stickerImage = new Image.file(file);
+
+    return _stickerImage;
   }
 }
 

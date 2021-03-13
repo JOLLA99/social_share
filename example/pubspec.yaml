@@ -15,11 +15,14 @@ dependencies:
   screenshot: ^0.1.1
   path_provider: ^1.5.1
   http:
-  image_picker: ^0.6.3+1
+  image_picker: ^0.6.7+17
 
   # 남준님 코드 패키지
   media_scanner_scan_file: ^0.0.2
   permission_handler: ^5.0.1+1
+
+assets:
+  - assets/images/test.png
 
 dev_dependencies:
   flutter_test:
