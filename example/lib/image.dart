@@ -20,6 +20,7 @@ class TextOverImage extends StatefulWidget {
 class _TextOverImage extends State<TextOverImage> {
   var globalKey = new GlobalKey(); // 위젯 캡쳐를 위한 globalkey
   var file;
+  var scanfile;
   Image _stickerImage;
 
   @override
@@ -101,6 +102,7 @@ class _TextOverImage extends State<TextOverImage> {
       File imgFile = new File('/storage/emulated/0/Download/screenshot.png');
       imgFile.writeAsBytes(pngBytes); // png 파일 저장
       _scanFile(imgFile); // media scan
+      file = imgFile;
       print("FINISH CAPTURE ${imgFile.path}");
     } else {
       print("!");
